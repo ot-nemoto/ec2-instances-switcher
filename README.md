@@ -13,6 +13,15 @@
 - 起動・停止対象から外したい場合はタグを削除。またはタグの値に上記以外を設定。
 - デプロイ
 
+*serverless*
 ```sh
 serverless deploy
+```
+
+*aws sam*
+```sh
+BUCKET_NAME=ec2-instances-switcher-`date +%Y%m%d%H%M%S`
+aws s3 mb s3://${BUCKET_NAME}
+sam package --s3-bucket ${BUCKET_NAME} --output-template-file packaged-template.yml
+sam deploy --template-file packaged-template.yml --stack-name ec2-instances-switcher --capabilities CAPABILITY_IAM
 ```

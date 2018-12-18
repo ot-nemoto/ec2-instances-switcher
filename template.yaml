@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 6
+
+Resources:
+  start:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: instances
+      Handler: start.handler
+      Runtime: nodejs8.10
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - "ec2:DescribeInstances"
+                - "ec2:StartInstances"
+              Resource: "*"
+      Environment:
+        Variables:
+          TAG_NAME: OnlyWeekdays
+      Events:
+        CheckWebsiteScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 23 ? * SUN-THU *)
+
+  stop:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: instances
+      Handler: stop.handler
+      Runtime: nodejs8.10
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - "ec2:DescribeInstances"
+                - "ec2:StopInstances"
+              Resource: "*"
+      Environment:
+        Variables:
+          TAG_NAME: OnlyWeekdays
+      Events:
+        CheckWebsiteScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 12 ? * MON-FRI *)

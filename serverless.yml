@@ -18,13 +18,14 @@ provider:
 package:
   exclude:
     - README.md
+    - template.yaml
 
 functions:
   start:
-    handler: start_instances.handler
+    handler: instances/start.handler
     events:
       - schedule: cron(0 23 ? * SUN-THU *)
   stop:
-    handler: stop_instances.handler
+    handler: instances/stop.handler
     events:
       - schedule: cron(0 12 ? * MON-FRI *)
