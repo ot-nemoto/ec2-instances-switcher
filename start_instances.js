@@ -20,7 +20,7 @@ module.exports.handler = function(event, context) {
       });
       ec2.startInstances({InstanceIds: instanceIds}, function(err, data) {
         if (err) console.log(err, err.stack);
-        else     console.log(date);
+        else     console.log(data);
       });
     }
   });
