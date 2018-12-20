@@ -4,7 +4,7 @@ var AWS = require('aws-sdk');
 
 module.exports.handler = function(event, context) {
   var ec2 = new AWS.EC2();
-  var tagName = process.env['TAG_NAME'];
+  var tagName = process.env['tag_name'];
   var params = {
     Filters: [{Name: `tag:${tagName}`, Values: ['ON', 'On', 'on', 'TRUE', 'True', 'true', '1']}]
   };

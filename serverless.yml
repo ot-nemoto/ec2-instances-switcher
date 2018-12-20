@@ -13,7 +13,7 @@ provider:
         - "ec2:StopInstances"
       Resource: "*"
   environment:
-    TAG_NAME: OnlyWeekdays
+    tag_name: ec2-instances-switcher-isenabled
 
 package:
   exclude:
