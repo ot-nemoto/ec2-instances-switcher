@@ -15,8 +15,13 @@
 
 *serverless*
 ```sh
-serverless deploy
+(cd layer/nodejs; npm install)
+sls deploy --public_holiday_api ${uri}/holiday
 ```
+
+※ ${uri} は [public-holiday-api](https://github.com/ot-nemoto/public-holiday-api) でdeployした祝日APIを参照
+
+---
 
 *aws sam*
 ```sh
@@ -25,3 +30,5 @@ aws s3 mb s3://${BUCKET_NAME}
 sam package --s3-bucket ${BUCKET_NAME} --output-template-file packaged-template.yml
 sam deploy --template-file packaged-template.yml --stack-name ec2-instances-switcher --capabilities CAPABILITY_IAM
 ```
+
+※ samのdeploy手順はメンテしないないので非推奨

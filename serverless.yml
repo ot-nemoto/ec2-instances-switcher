@@ -14,18 +14,27 @@ provider:
       Resource: "*"
   environment:
     tag_name: ec2-instances-switcher-isenabled
+    public_holiday_api: ${opt:public_holiday_api}
 
 package:
   exclude:
     - README.md
     - template.yaml
 
+layers:
+  ec2InstancesSwitcher:
+    path: layer
+
 functions:
   start:
     handler: instances/start.handler
+    layers:
+      - {Ref: Ec2InstancesSwitcherLambdaLayer}
     events:
       - schedule: cron(0 23 ? * SUN-THU *)
   stop:
     handler: instances/stop.handler
+    layers:
+      - {Ref: Ec2InstancesSwitcherLambdaLayer}
     events:
       - schedule: cron(0 12 ? * MON-FRI *)
