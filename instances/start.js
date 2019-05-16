@@ -2,7 +2,7 @@
 
 const AWS = require('aws-sdk');
 const PublicHoliday = require('public-holiday');
-const Ec2Selector = require('ec2-selector');
+const Ec2Controller = require('ec2-controller');
 
 module.exports.handler = function(event, context) {
 
@@ -14,7 +14,7 @@ module.exports.handler = function(event, context) {
     return;
   }
 
-  var selector = new Ec2Selector(process.env['tag_name']);
+  var selector = new Ec2Controller(process.env['tag_name']);
   selector.select(enableStates, function(instanceIds) {
     if (instanceIds.length > 0) {
       var ec2 = new AWS.EC2();
